@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Events</title>
+</head>
+<body>
+
+    <!-- Section 01: Mouse and Keyboard Events -->
+    <div id="section01">
+        <h2>Section 01: Mouse and Keyboard Events</h2>
+        <button id="clickBtn">Click Me</button>
+        <button id="dblclickBtn">Double Click Me</button>
+        <div id="mouseEvents" style="width: 200px; height: 200px; background-color: lightgray;">
+            Mouse Events Area
+        </div>
+        <input type="text" id="keyEvents" placeholder="Type something...">
+    </div>
+
+    <!-- Section 02: Form and Window Events -->
+    <div id="section02">
+        <h2>Section 02: Form and Window Events</h2>
+        <form id="formEvents">
+            <input type="text" id="inputField" placeholder="Input field">
+            <input type="submit" value="Submit">
+        </form>
+        <textarea id="textareaField" placeholder="Type something..."></textarea>
+    </div>
+
+    <!-- Section 03: Document and Clipboard Events -->
+    <div id="section03">
+        <h2>Section 03: Document and Clipboard Events</h2>
+        <div id="clipboardEvents" contenteditable="true" style="border: 1px solid black; padding: 10px;">
+            Copy, cut, or paste here.
+        </div>
+    </div>
+
+    <!-- Section 04: Inline Event Handlers -->
+    <div id="section04">
+        <h2>Section 04: Inline Event Handlers</h2>
+        <button onclick="alert('Button clicked!')">Click Me</button>
+        <div onmouseover="this.style.backgroundColor='yellow';" onmouseout="this.style.backgroundColor='';" style="width: 200px; height: 200px; background-color: lightblue;">
+            Hover over me
+        </div>
+        <input type="text" onkeydown="console.log('Key down');" onkeyup="console.log('Key up');" onchange="console.log('Change detected');" placeholder="Type something...">
+    </div>
+
+    <script>
+        // Section 01: Mouse and Keyboard Events
+        document.getElementById('clickBtn').addEventListener('click', () => alert('Button clicked!'));
+        document.getElementById('dblclickBtn').addEventListener('dblclick', () => alert('Button double-clicked!'));
+        const mouseEventsDiv = document.getElementById('mouseEvents');
+        mouseEventsDiv.addEventListener('mousedown', () => console.log('Mouse down'));
+        mouseEventsDiv.addEventListener('mouseup', () => console.log('Mouse up'));
+        mouseEventsDiv.addEventListener('mouseover', () => console.log('Mouse over'));
+        mouseEventsDiv.addEventListener('mouseout', () => console.log('Mouse out'));
+        mouseEventsDiv.addEventListener('mouseenter', () => console.log('Mouse enter'));
+        mouseEventsDiv.addEventListener('mouseleave', () => console.log('Mouse leave'));
+        mouseEventsDiv.addEventListener('contextmenu', (e) => {
+            e.preventDefault();
+            console.log('Context menu');
+        });
+        document.getElementById('keyEvents').addEventListener('keydown', () => console.log('Key down'));
+        document.getElementById('keyEvents').addEventListener('keyup', () => console.log('Key up'));
+        document.getElementById('keyEvents').addEventListener('keypress', () => console.log('Key press'));
+
+        
+        // Section 02: Form and Window Events
+        document.getElementById('formEvents').addEventListener('submit', (e) => {
+            e.preventDefault();
+            console.log('Form submitted');
+        });
+        document.getElementById('inputField').addEventListener('change', () => console.log('Input field changed'));
+        document.getElementById('inputField').addEventListener('focus', () => console.log('Input field focused'));
+        document.getElementById('inputField').addEventListener('blur', () => console.log('Input field blurred'));
+        document.getElementById('textareaField').addEventListener('input', () => console.log('Textarea input'));
+        window.addEventListener('load', () => console.log('Window loaded'));
+        window.addEventListener('resize', () => console.log('Window resized'));
+        window.addEventListener('scroll', () => console.log('Window scrolled'));
+        window.addEventListener('unload', () => console.log('Window unloaded'));
+        window.addEventListener('beforeunload', () => console.log('Before window unload'));
+
+        
+        
+        // Section 03: Document and Clipboard Events
+        document.addEventListener('DOMContentLoaded', () => console.log('DOM fully loaded and parsed'));
+        document.getElementById('clipboardEvents').addEventListener('copy', () => console.log('Content copied'));
+        document.getElementById('clipboardEvents').addEventListener('cut', () => console.log('Content cut'));
+        document.getElementById('clipboardEvents').addEventListener('paste', () => console.log('Content pasted'));
+    </script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="inputField">
+    <p id="wordCount">Words: 0</p>
+    <p id="charCount">Characters: 0</p>
+    <script>
+        // Get the input field
+        const inputField = document.getElementById('inputField');
+
+        inputField.addEventListener('input', function() {
+            // Get the text from the input field
+            const text = inputField.value.trim();
+            // Split the text into words
+            const words = text.split(' ').filter(word => word);
+            
+            // Update the word and character count
+            document.getElementById('wordCount').textContent = `Words: ${words.length}`;
+            document.getElementById('charCount').textContent = `Characters: ${inputField.value.length}`;
+        });
+    </script>
+     
+</body>
+</html>
+
+<!-- Improvement use vowel and copy and paste -->
