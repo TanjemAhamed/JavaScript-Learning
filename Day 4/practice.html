@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <input type="text" id="id">
+    <input type="text" id="name">
+    <button>Add Row</button>
+    
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Action</th>
+        </tr>
+    </table>
+    <script> 
+        let addId = document.getElementById('id');
+        let addName = document.getElementById('name');
+        let addRowButton = document.querySelector('button');
+
+        addRowButton.addEventListener('click', () => {
+            let table = document.getElementById('table');
+            let newRow = document.createElement('tr');
+            let idCell = document.createElement('td');
+            idCell.innerText = addId.value;
+            newRow.appendChild(idCell);
+            let nameCell = document.createElement('td');
+            nameCell.innerText = addName.value;
+            newRow.appendChild(nameCell);
+
+            let deleteCell = document.createElement('td');
+            let deleteButton = document.createElement('button');
+            deleteButton.innerText = 'Delete';
+            deleteCell.appendChild(deleteButton);
+            newRow.appendChild(deleteCell);
+
+        })
+        
+    </script>
+</body>
+</html>

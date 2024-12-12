@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="id" placeholder="ID">
+    <input type="text" id="name" placeholder="Name">
+    <button>Add Row</button>
+    <br> <br>
+    
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Action</th>
+        </tr>
+    </table>
+
+    <script>
+        // Get the Button
+        let addRowButton = document.querySelector('button');
+        let table = document.querySelector('table');
+
+        // Get the ID Input Field
+        let idInput = document.querySelector('#id');
+        let nameInput = document.querySelector('#name');
+
+        // Add Event Listener to the Button
+        addRowButton.addEventListener('click', function(){
+            // Validate inputs
+            if (idInput.value.trim() === '' || nameInput.value.trim() === '') {
+                alert('ID and Name cannot be empty');
+                return;
+            }
+            
+            // Create a new row
+            let newRow = document.createElement('tr');
+            
+            // Create a new cell for ID
+            let idCell = document.createElement('td');
+            idCell.innerText = idInput.value;
+            newRow.appendChild(idCell);
+            
+            // Create a new cell for Name
+            let nameCell = document.createElement('td');
+            nameCell.innerText = nameInput.value;
+            newRow.appendChild(nameCell);
+            
+            // Create a new cell for Delete Button
+            let deleteCell = document.createElement('td');
+            let deleteButton = document.createElement('button');
+            deleteButton.innerText = 'Delete';
+            deleteCell.appendChild(deleteButton);
+            newRow.appendChild(deleteCell);
+            
+            // Append the new row to the table
+            table.appendChild(newRow);
+            
+            // Clear the input fields
+            idInput.value = '';
+            nameInput.value = '';
+        });
+
+        // Add Event Listener to the Delete Button
+        table.addEventListener('click', function(e){
+            if(e.target.innerText === 'Delete'){
+                e.target.parentElement.parentElement.remove();
+            }
+        });
+    </script>
+    
+</body>
+</html>

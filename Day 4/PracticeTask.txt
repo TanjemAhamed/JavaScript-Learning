@@ -1,0 +1,7 @@
+Task: 01
+
+1) Create a table with 3 columns: ID, Name, Age and a button
+2) When the button is clicked, that row should be deleted
+3) There will be another botton at the very top and when it is clicked, a new row should be inserted at the very bottom
+4) Use two input field to take the input for Name and Age for the table
+
