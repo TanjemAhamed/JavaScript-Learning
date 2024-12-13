@@ -1,0 +1,49 @@
+{
+  "posts": [
+    {
+      "id": "1",
+      "title": "a title",
+      "views": 100
+    },
+    {
+      "id": "2",
+      "title": "another title",
+      "views": 200
+    },
+    {
+      "id": "3",
+      "text": "a comment about post 1",
+      "postId": "3"
+    },
+    {
+      "id": 2,
+      "text": "A comment about post 2",
+      "postId": 2
+    },
+    {
+      "id": 44,
+      "text": "A comment about post 44",
+      "postId": 44
+    },
+    {
+      "id": 55,
+      "text": "A comment about post 55",
+      "postId": 55
+    }
+  ],
+  "comments": [
+    {
+      "id": "1",
+      "text": "a comment about post 1",
+      "postId": "1"
+    },
+    {
+      "id": "2",
+      "text": "another comment about post 1",
+      "postId": "1"
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}
