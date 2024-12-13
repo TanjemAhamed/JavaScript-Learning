@@ -1,0 +1,42 @@
+{
+  "employees": [
+    {
+      "id": "5579",
+      "fullName": "Tanjem  Ahamed Eftey",
+      "gender": "Male",
+      "department": "HR",
+      "salary": "55000"
+    },
+    {
+      "id": "f797",
+      "fullName": "Aryan Bin Jahur",
+      "gender": "Male",
+      "department": "HR",
+      "salary": "55000"
+    },
+    {
+      "id": "b73f",
+      "fullName": "Shorif Bin Shanto",
+      "gender": "Male",
+      "department": "IT",
+      "salary": "20000"
+    },
+    {
+      "id": "2797",
+      "fullName": "A B C",
+      "gender": "Male",
+      "department": "HR",
+      "salary": "1000000"
+    }
+  ],
+  "departments": [
+    {
+      "id": "1",
+      "name": "HR"
+    },
+    {
+      "id": "2",
+      "name": "IT"
+    }
+  ]
+}

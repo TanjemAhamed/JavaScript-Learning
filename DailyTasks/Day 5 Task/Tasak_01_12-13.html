@@ -6,6 +6,260 @@
     <title>Document</title>
 </head>
 <body>
+    <!-- 
+        1) Create a Table List for Employee with fields -> Id, Full Name, Gender, Department, Salary
+        2) Create another Table List for Department with fields -> Id and Name
+        3) Create a form to take input for -> First Name, Middle Name, Last Name, Gender (radio button), and Department (picklist that has a reference of Department with Id) and finally there will be a button to Save the data
+        4) Same for Department form with input -> Id, Name and then save it with Save button
+        5) Then use Fake Api server to get the data from both tables and store it in data.json file. 
+        6) Then use Fetch API to get the data from data.json file and display it in the table format.    
+    -->
+
+    <!-- Employee Table -->
+    <table id="employeeTable" border="1">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Full Name</th>
+                <th>Gender</th>
+                <th>Department</th>
+                <th>Salary</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+    <br> <br>
+
+    <!-- Department Table -->
+    <table id="departmentTable" border="1">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
     
+    <!-- Department Form -->
+    <form id="departmentForm">
+        <h3>Department Form</h3>
+
+        <label for="deptId">Id:</label>
+        <input type="text" id="deptId" name="deptId"><br>
+        
+        <label for="deptName">Name:</label>
+        <input type="text" id="deptName" name="deptName"><br>
+
+        <br>
+        <button type="button" onclick="saveDepartment()">Save</button>
+    </form>
+
+    <br> <br>
+
+    <!-- Employee Form -->
+    <form id="employeeForm">
+        <h3>Employee Form</h3>
+
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" name="firstName"><br>
+
+        <label for="middleName">Middle Name:</label>
+        <input type="text" id="middleName" name="middleName"><br>
+
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" name="lastName"><br>
+
+        <label for="gender">Gender:</label>
+        <input type="radio" id="male" name="gender" value="Male">
+        <label for="male">Male</label>
+        <input type="radio" id="female" name="gender" value="Female">
+        <label for="female">Female</label><br>
+        
+        <label for="department">Department:</label>
+        <select id="department" name="department">
+        </select><br>
+
+        <label for="salary">Salary:</label>
+        <input type="text" id="salary" name="salary"><br>
+
+        <br>
+        <button type="button" onclick="saveEmployee()">Save</button>
+    </form>
+
+
+
+    <script>
+        const employeeEndpoint = 'http://localhost:3000/employees';
+        const departmentEndpoint = 'http://localhost:3000/departments';
+
+        let employees = [];
+        let departments = [];
+
+        // Fetch data when the page is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchData();
+        });
+
+        // Fetch data from the API
+        async function fetchData() {
+            try {
+                // Fetch data from the API for Employee
+                const employeeResponse = await fetch(employeeEndpoint);
+                employees = await employeeResponse.json();
+                populateEmployeeTable();
+
+                // Fetch data from the API for Department
+                const departmentResponse = await fetch(departmentEndpoint);
+                departments = await departmentResponse.json();
+                
+                // Functions to populate Department Table and Department Options
+                populateDepartmentTable();
+                populateDepartmentOptions();
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+
+        // Save Employee information to the API server
+        async function saveEmployee() {
+            // Get the values from the form
+            const firstName = document.getElementById('firstName').value;
+            const middleName = document.getElementById('middleName').value;
+            const lastName = document.getElementById('lastName').value;
+            const gender = document.querySelector('input[name="gender"]:checked');
+            const department = document.getElementById('department').value;
+            const salary = document.getElementById('salary').value;
+
+            // Validation checking for inputs
+            if (!firstName || !middleName || !lastName || !gender || !department || !salary) {
+                alert('All fields are required.');
+                return;
+            }
+
+            // Full name concatenation
+            const fullName = `${firstName} ${middleName} ${lastName}`;
+            const employee = { fullName, gender: gender.value, department, salary };
+
+            // Storing the information to the API server
+            try {
+                const response = await fetch(employeeEndpoint, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(employee)
+                });
+                const data = await response.json();
+                // Pushing the data to the employees array
+                employees.push(data);
+                // Populating the Employee Table
+                populateEmployeeTable();
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        // Save Department information to the API server
+        async function saveDepartment() {
+            const id = document.getElementById('deptId').value;
+            const name = document.getElementById('deptName').value;
+
+            if (!id || !name) {
+                alert('All fields are required.');
+                return;
+            }
+
+            const department = { id, name };
+
+            // Storing the information to the API server
+            try {
+                const response = await fetch(departmentEndpoint, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(department)
+                });
+                const data = await response.json();
+                // Pushing the data to the departments array
+                departments.push(data);
+                // Populating the Department Table and Department Options
+                populateDepartmentTable();
+                populateDepartmentOptions();
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+
+
+
+        
+        /* Functions to populate the tables and options */
+
+        function populateEmployeeTable() {
+            const tbody = document.querySelector('#employeeTable tbody');
+            tbody.innerHTML = '';
+            employees.forEach(employee => {
+                const row = `<tr>
+                    <td>${employee.id}</td>
+                    <td>${employee.fullName}</td>
+                    <td>${employee.gender}</td>
+                    <td>${employee.department}</td>
+                    <td>${employee.salary}</td>
+                </tr>`;
+                tbody.innerHTML += row;
+            });
+        }
+
+        function populateDepartmentTable() {
+            const tbody = document.querySelector('#departmentTable tbody');
+            tbody.innerHTML = '';
+            departments.forEach(department => {
+                const row = `<tr>
+                    <td>${department.id}</td>
+                    <td>${department.name}</td>
+                    <td>
+                        <button onclick="deleteDepartment(${department.id})">Delete</button>
+                    </td>
+                </tr>`;
+                tbody.innerHTML += row;
+            });
+        }
+
+        function populateDepartmentOptions() {
+            const select = document.getElementById('department');
+            select.innerHTML = '';
+            departments.forEach(department => {
+                // Creating options for the select element
+                const option = `<option value="${department.name}">${department.name}</option>`;
+                select.innerHTML += option;
+            });
+        }
+
+        // Delete Department
+
+        async function deleteDepartment(id) {
+            try {
+                // Deleting the department from the API server
+                await fetch(`${departmentEndpoint}/${id}`, {
+                    method: 'DELETE'
+                });
+                departments = departments.filter(dept => dept.id !== id);
+                // Populating the Department Table and Department Options
+                populateDepartmentTable();
+                populateDepartmentOptions();
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+    </script>
 </body>
 </html>
